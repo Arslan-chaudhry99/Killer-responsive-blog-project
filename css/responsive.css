@@ -1,0 +1,45 @@
+@media screen and (max-width: 870px) {
+  /* .navigation{
+        
+     
+  } */
+.nav-left{
+  display: none;
+}
+.bgp-img-box img{
+  width: 80vw;
+}
+.nav-right{
+  display: none;
+}
+.rp-menu{
+  display: flex;
+  margin-top: 2px;
+  margin-left: 2px;
+}
+.nav-left-1{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+  .right-content{
+     display: none;
+  }
+  .home-article{
+    flex-direction: column;
+    text-align: center;
+  }
+  .home-article img{
+      width: 70vw;
+  }
+}
+@media screen and (max-width:870x){
+  .side-menu{
+    visibility: visible;
+  }
+}
+@media screen and (min-width: 870px){
+.op-cl{
+  display: none;
+}
+}
