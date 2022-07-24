@@ -36,7 +36,7 @@ let volumeControl = document.getElementById("volumeControl");
 let expendOrDisable = document.getElementById("expendOrDisable");
 let upDown = document.getElementById("upDown");
 let download = document.getElementById("download");
-// to displau or hide volume opction.
+// This logic is writen to display or hide the volume opction
 const inc = () => {
   const displayVolume = () => {
     checkAddVolume = true;
@@ -54,7 +54,7 @@ const inc = () => {
   };
   checkAddVolume ? disableVolume() : displayVolume();
 };
-// to manage volume
+// This logic is writen to increase or decrease the volume
 const decreseFull = () => {
   volumeControl.value = volumeControl.value - 10;
   music.volume = volumeControl.value / 100;
@@ -67,14 +67,15 @@ const increaseFull = () => {
     null;
   }
 };
-let indexFromSongList=0
+let indexFromSongList = 0;
 let songIndex = 1;
 let music = new Audio(`audio/${songIndex}.mp3`);
+// This is used to dected if any change is done in seek by user
 volumeControl.addEventListener("change", () => {
   let setMusic = document.getElementById("volumeControl");
   music.volume = setMusic.value / 100;
 });
-// this is to show content
+// This logic is sued to dislay or hidde song list
 let defult = true;
 const showcontentNow = () => {
   const show = () => {
@@ -93,18 +94,17 @@ const showcontentNow = () => {
   defult ? show() : hide();
 };
 
-// Play sound part
+// Main player
 let playpauseTrack = document.getElementById("playpauseTrack");
 let mainRange = document.getElementById("mainRange");
 let songItems = Array.from(document.getElementsByClassName("songItems"));
 playpauseTrack.addEventListener("click", () => {
   if (music.pause && music.currentTime <= 0) {
     music.play();
+
     playpauseTrack.classList.remove("fa-play-circle");
     playpauseTrack.classList.add("fa-pause-circle");
     music.volume = volumeControl.value / 100;
-    // newArr[songIndex - 1].classList.remove("fa-play-circle");
-    // newArr[songIndex - 1].classList.add("fa-pause-circle");
     for (let i = 0; i < song.length; i++) {
       if (indexFromSongList === i) {
         newArr[i].classList.remove("fa-play-circle");
@@ -121,17 +121,13 @@ playpauseTrack.addEventListener("click", () => {
     playpauseTrack.classList.add("fa-play-circle");
     stop();
     for (let i = 0; i < song.length; i++) {
-      
-        newArr[i].classList.remove("fa-pause-circle");
-        newArr[i].classList.add("fa-play-circle");
-      
+      newArr[i].classList.remove("fa-pause-circle");
+      newArr[i].classList.add("fa-play-circle");
     }
-   
   }
 });
-
+// This logic is writen to detect the time update to move main seek
 music.addEventListener("timeupdate", () => {
- 
   progress = parseInt((music.currentTime / music.duration) * 100);
   mainRange.value = progress;
 
@@ -144,7 +140,6 @@ music.addEventListener("timeupdate", () => {
   }
   const result = `${mintSec(min)}:${mintSec(sec)}`;
   document.getElementById("total_time").innerText = result;
-
   // curent time
   let curentTime = parseInt(music.currentTime);
   const curentMin = Math.floor(curentTime / 60);
@@ -180,7 +175,6 @@ document.getElementById("downloadtitle").download = `${title}`;
 document.getElementById("downloadtitle").href = "audio/1.mp3";
 
 const titleOfSong = (name) => {
-  
   let newSongName = (document.querySelector(".title").innerHTML =
     song[name].name);
   document.getElementById("downloadtitle").download = `${newSongName}`;
@@ -201,8 +195,7 @@ newArr.forEach((element, index) => {
       music.play();
       playpauseTrack.classList.remove("fa-play-circle");
       playpauseTrack.classList.add("fa-pause-circle");
-      indexFromSongList=index
-      
+      indexFromSongList = index;
     } else {
       setNew = true;
       music.pause();
@@ -222,12 +215,12 @@ const nextTrack = () => {
     : (songIndex = songIndex);
   if (songIndex <= song.length && songIndex >= 1) {
     music.src = `audio/${songIndex}.mp3`;
-    
+
     music.play();
     document.querySelector(".title").innerText = song[songIndex - 1].name;
     playpauseTrack.classList.remove("fa-play-circle");
     playpauseTrack.classList.add("fa-pause-circle");
-    indexFromSongList=songIndex-1
+    indexFromSongList = songIndex - 1;
     for (let i = 0; i < song.length; i++) {
       if (songIndex - 1 === i) {
         newArr[i].classList.remove("fa-play-circle");
@@ -241,6 +234,7 @@ const nextTrack = () => {
     null;
   }
 };
+// previous track
 const prevTrack = () => {
   --songIndex;
   songIndex < 1 ? (songIndex = 1) : (songIndex = songIndex);
@@ -251,7 +245,7 @@ const prevTrack = () => {
     document.querySelector(".title").innerText = song[songIndex - 1].name;
     playpauseTrack.classList.remove("fa-play-circle");
     playpauseTrack.classList.add("fa-pause-circle");
-    indexFromSongList=songIndex-1
+    indexFromSongList = songIndex - 1;
     for (let i = 0; i < song.length; i++) {
       if (songIndex - 1 === i) {
         newArr[i].classList.remove("fa-play-circle");
@@ -269,29 +263,22 @@ const prevTrack = () => {
 // loop of song
 const repeatTrack = (condtion) => {
   if (condtion === true) {
-    
     document.getElementById("close").style.display = "none";
     document.getElementById("open").style.display = "flex";
-    const conditionChecking=() => {
-      
+    const conditionChecking = () => {
       if (music.currentTime <= 0) {
         null;
       } else {
         if (music.currentTime === music.duration) {
           music.play();
-        } 
-        else {
+        } else {
           null;
         }
       }
-    }
+    };
     setInterval(conditionChecking, 1000);
-   
-  } 
-  else if(condtion === false) {
+  } else if (condtion === false) {
     document.getElementById("close").style.display = "flex";
     document.getElementById("open").style.display = "none";
-   
-    
   }
 };

@@ -22,18 +22,20 @@
     <div class="player">
       <div class="wrapper">
         <div class="download" id="download">
-          <a href="audio/1.mp3" download="" id="downloadtitle"><i class="fa fa-download"  ></i></a>
+          <a href="audio/1.mp3" download="" id="downloadtitle"
+            ><i class="fa fa-download"></i
+          ></a>
         </div>
         <div class="songList">
           <div class="songMore">
             <span onclick="showcontentNow()">Song List</span>
             <div class="openClose">
-            <i
-              class="fa fa-angle-down"
-              onclick="showcontentNow()"
-              id="upDown"
-            ></i>
-          </div>
+              <i
+                class="fa fa-angle-down"
+                onclick="showcontentNow()"
+                id="upDown"
+              ></i>
+            </div>
           </div>
           <div class="songContent" id="expendOrDisable">
             <div class="elemnt-flex">
@@ -129,7 +131,7 @@
           <i class="fa fa-volume-up" id="volumeDisplay" onclick="inc()"></i>
         </div>
         <div class="slider_container">
-          <div class="curTime1" > <span id="total_time">00:00</span> </div>
+          <div class="curTime1"><span id="total_time">00:00</span></div>
           <input
             type="range"
             min="1"
@@ -138,8 +140,10 @@
             class="seek_slider"
             id="mainRange"
           />
-          
-          <div class="curTime2" ><span>-</span> <span id="curent_time">00:00</span> </div>
+
+          <div class="curTime2">
+            <span>-</span> <span id="curent_time">00:00</span>
+          </div>
         </div>
 
         <div class="buttons" id="buttons">
@@ -155,16 +159,21 @@
           <div class="next-track disable" onclick="nextTrack()">
             <i class="fa fa-step-forward fa-2x"></i>
           </div>
-          <div class="repeat-track  repeat_open" id="close" onclick="repeatTrack(true)">
+          <div
+            class="repeat-track repeat_open"
+            id="close"
+            onclick="repeatTrack(true)"
+          >
             <i class="fa fa-repeat fa-1x"></i>
           </div>
-          <div class="repeat-track  repeat_close" id="open" onclick="repeatTrack(false)">
+          <div
+            class="repeat-track repeat_close"
+            id="open"
+            onclick="repeatTrack(false)"
+          >
             <i class="fa fa-repeat fa-1x"></i>
           </div>
-          
-          
         </div>
-        
       </div>
     </div>
   </body>
