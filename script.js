@@ -271,6 +271,7 @@ const repeatTrack = (condtion) => {
       } else {
         if (music.currentTime === music.duration) {
           music.play();
+          
         } else {
           null;
         }
