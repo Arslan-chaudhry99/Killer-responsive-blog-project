@@ -21,6 +21,12 @@ const song = [
   {
     name: "Stay Alive MP.3",
   },
+  {
+    name: "Panda MP.3",
+  },
+  {
+    name: "Broken Angle MP.3",
+  },
 ];
 let checkAddVolume = false;
 let fav = document.getElementById("fav");
