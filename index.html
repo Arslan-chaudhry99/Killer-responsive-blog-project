@@ -1,170 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Player</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/utile.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="css/nav.css">
-    <link rel="stylesheet" href="css/sidebar.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Document</title>
-
-</head>
-
-<body>
-
-    <nav class="navigation max-width-1 m-auto">
-        <div class="nav-left">
-            <a href="index.html">
-                <span><img src="img/logo-img.png" alt="logo"></span>
-            </a>
-
-            <ul>
-                <li> <a href="index.html">Home</a></li>
-                <li> <a href="blog.html">Blog</a></li>
-                <li> <a href="contact.html">Contact</a></li>
-            </ul>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <div class="message">No more song available!</div>
+    <div class="player">
+      <div class="wrapper">
+        <div class="download" id="download">
+          <a href="audio/1.mp3" download="" id="downloadtitle"><i class="fa fa-download"   ></i></a>
         </div>
-        <div class="nav-right">
-            <form action="search.html" method="get">
-                <input class="form-input" type="text" name="query" placeholder="search here"><button
-                    class="btn">search</button>
-            </form>
+        <div class="songList">
+          <div class="songMore">
+            <span onclick="showcontentNow()">Song List</span>
+            <div class="openClose">
+            <i
+              class="fa fa-angle-down"
+              onclick="showcontentNow()"
+              id="upDown"
+            ></i>
+          </div>
+          </div>
+          <div class="songContent" id="expendOrDisable">
+            <div class="elemnt-flex">
+              <div class="songItems">
+                <span></span>
+                <div>
+                  <i class="fa fa-play-circle playItem"></i>
+                </div>
+              </div>
 
-        </div>
-        <div class="nav-left-1">
-            <div class="rp-menu" id="rp-menu-id" onclick="openmenu()">≡</div>
-            <form action="search.html" method="get">
-                <input class="form-input-1" id="form-input-id" type="text" name="query" placeholder="search here">
-            </form>
-            <div class="op-cl" onclick="opensearch()"><button><i class="fa fa-search" id="search"></i>
-                    <i class="fa fa-search-minus" id="search-minus"></i>
-                </button>
-
-
+              <div class="songItems">
+                <span></span>
+                <div>
+                  <i class="fa fa-play-circle playItem"></i>
+                </div>
+              </div>
+              <div class="songItems">
+                <span></span>
+                <div>
+                  <i class="fa fa-play-circle playItem"></i>
+                </div>
+              </div>
+              <div class="songItems">
+                <span></span>
+                <div>
+                  <i class="fa fa-play-circle playItem"></i>
+                </div>
+              </div>
+              <div class="songItems">
+                <span></span>
+                <div>
+                  <i class="fa fa-play-circle playItem"></i>
+                </div>
+              </div>
+              <div class="songItems">
+                <span></span>
+                <div>
+                  <i class="fa fa-play-circle playItem"></i>
+                </div>
+              </div>
+              <div class="songItems">
+                <span></span>
+                <div>
+                  <i class="fa fa-play-circle playItem"></i>
+                </div>
+              </div>
             </div>
-
+          </div>
         </div>
 
-    </nav>
-    <div class="side-menu" id="open-side-menu">
-        <div id="closebtn" class="close cl-1" onclick="closemenu()"><img src="img/logo-img.png" alt=""><i
-                class="fa fa-times"></i>
+        <div class="volume-player" id="volume">
+          <div>
+            <i class="fa fa-volume-down" onclick="decreseFull()"></i>
+          </div>
+
+          <input
+            type="range"
+            min="1"
+            max="100"
+            value="100"
+            class="seek_slider"
+            id="volumeControl"
+          />
+          <div>
+            <i class="fa fa-volume-up" onclick="increaseFull()"></i>
+          </div>
         </div>
-        <ul>
-            <li> <a href="index.html">Home</a></li>
-            <li> <a href="../">About</a></li>
-            <li> <a href="blog.html">Blog</a></li>
-            <li> <a href="contact.html">Contact</a></li>
-        </ul>
+
+        <div class="details">
+          <div class="track-art">
+            <img
+              src="images/800px-12in-Vinyl-LP-Record-Angle-removebg-preview.png"
+              alt=""
+              class="rotate"
+            />
+          </div>
+        </div>
+        <div class="title"><span></span></div>
+        <div class="other_opc">
+          <i class="fa fa-heart other-icon" id="fav"></i>
+          <i class="fa fa-volume-up" id="volumeDisplay" onclick="inc()"></i>
+        </div>
+        <div class="slider_container">
+          <div class="curTime1" > <span id="total_time">00:00</span> </div>
+          <input
+            type="range"
+            min="1"
+            max="100"
+            value="0"
+            class="seek_slider"
+            id="mainRange"
+          />
+          
+          <div class="curTime2" ><span>-</span> <span id="curent_time">00:00</span> </div>
+        </div>
+
+        <div class="buttons" id="buttons">
+          <div class="random-track disable" onclick="randomTrack()">
+            <i class="fas fa-random fa-1x" title="random"></i>
+          </div>
+          <div class="prev-track disable" onclick="prevTrack()">
+            <i class="fa fa-step-backward fa-2x"></i>
+          </div>
+          <div class="playpause-track">
+            <i class="fa fa-play-circle fa-2x" id="playpauseTrack"></i>
+          </div>
+          <div class="next-track disable" onclick="nextTrack()">
+            <i class="fa fa-step-forward fa-2x"></i>
+          </div>
+          <div class="repeat-track  repeat_open" id="close" onclick="repeatTrack(true)">
+            <i class="fa fa-repeat fa-1x"></i>
+          </div>
+          <div class="repeat-track  repeat_close" id="open" onclick="repeatTrack(false)">
+            <i class="fa fa-repeat fa-1x"></i>
+          </div>
+          
+          
+        </div>
+        
+      </div>
     </div>
-    <div class=" max-width-1 m-auto my-2">
-        <hr>
-    </div>
-    <div class="content max-width-1 m-auto">
-        <div class="left-content">
-            <h1>What is business</h1>
-            According to well-known professors William Pride, Robert Hughes, and Jack Kapoor, business is 'the organized effort of individuals to produce and sell, for a profit, the goods and services that satisfy society's needs.' A business, then, is an organization which seeks to make a profit through individuals working toward common goals. The goals of the business will vary based on the type of business and the business strategy being used. Regardless of the preferred strategy, businesses must provide a service, product, or good that meets a need of society in some way.
-            There are three key characteristics that must be met to have a business. First, businesses must be the result of individuals working together in an organized way. Second, businesses must satisfy a societal need. Third, businesses must seek to make a profit.
-
-As Pride, Hughes and Kapoor note, businesses are comprised of individuals working together in an organized way in order to be successful. Businesses are organized around the resources needed to be successful, as well as the type of business that is being operated. Some businesses may be organized in a way that requires constant cooperation and communication with other employees. Other businesses may not require as much contact with other employees but may instead rely on automated workflows. They must decide the best way to be organized based on their individual goals
-        </div>
-
-    </div>
-    <div class="max-width-1 m-auto my-2">
-        <hr>
-    </div>
-    <div class="home-articles max-width-1 m-auto font1">
-        <!-- <div class="year-box">
-            <h3>Years</h3>
-            <div><input type="radio" name="reay" id="">2020</div>
-            <div><input type="radio" name="reay" id="">2021</div>
-        </div> -->
-        <h2>New articles</h2>
-        <div class="home-article">
-            <div class="home-article-img">
-                <img src="img/facts-about-facebook.jpg" alt="img">
-            </div>
-            <div class="home-article-content">
-                <a href="blogpost.html">
-                    <h3> 10 Facts about Facebook</h3>
-                </a>
-                <div class="my-3"><span>Arslan chaudhry</span></div>
-                <div class="my-3"><span>05 july 2021 | 10 min read</span></div>
-            </div>
-        </div>
-        <div class="home-article">
-            <div class="home-article-img">
-                <img src="img/Artificial_Intelligence06.jpg" alt="img">
-            </div>
-            <div class="home-article-content">
-                <a href="blogpost.html">
-                    <h3> 10 Facts about A.I</h3>
-                </a>
-                <div class="my-3"><span>Arslan chaudhry</span></div>
-                <div class="my-3"><span>05 july 2021 | 10 min read</span></div>
-            </div>
-        </div>
-        <div class="home-article">
-            <div class="home-article-img">
-                <img src="img/internet.jpg" alt="img">
-            </div>
-            <div class="home-article-content">
-                <a href="blogpost.html">
-                    <h3> 10 Facts about internet</h3>
-                </a>
-                <div class="my-3"><span>Arslan chaudhry</span></div>
-                <div class="my-3"><span>05 july 2021 | 10 min read</span></div>
-            </div>
-        </div>
-        <div class="home-article">
-            <div class="home-article-img">
-                <img src="img/sub-mind.jpg" alt="img">
-            </div>
-            <div class="home-article-content">
-                <a href="blogpost.html">
-                    <h3> 10 Facts about Subconcious minde</h3>
-                </a>
-                <div class="my-3"><span>Arslan chaudhry</span></div>
-                <div class="my-3"><span>05 july 2021 | 10 min read</span></div>
-            </div>
-        </div>
-        <div class="home-article">
-            <div class="home-article-img">
-                <img src="img/dark web.jpg" alt="img">
-            </div>
-            <div class="home-article-content">
-                <a href="blogpost.html">
-                    <h3> 10 Facts about Dark web</h3>
-                </a>
-                <div class="my-3"><span>Arslan chaudhry</span></div>
-                <div class="my-3"><span>05 july 2021 | 10 min read</span></div>
-            </div>
-        </div>
-        <div class="home-article">
-            <div class="home-article-img">
-                <img src="img/file.png" alt="img">
-            </div>
-            <div class="home-article-content">
-                <a href="blogpost.html">
-                    <h3> 10 Facts about Anti-Matter</h3>
-                </a>
-                <div class="my-3"><span>Arslan chaudhry</span></div>
-                <div class="my-3"><span>05 july 2021 | 10 min read</span></div>
-            </div>
-        </div>
-    </div>
-    <div class="footer max-width-1 m-auto ">
-        <p>&copy;ODER ARSLAN-CHAUDHRY</p>
-        <p> <a href="a.j.com">ARSLAN-CHAUDHRY</a></p>
-    </div>
-
-    <script src="java script/script.js"></script>
-
-</body>
-
+  </body>
 </html>
