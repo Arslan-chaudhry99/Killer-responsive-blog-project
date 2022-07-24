@@ -96,6 +96,7 @@ playpauseTrack.addEventListener("click", () => {
     playpauseTrack.classList.remove("fa-play-circle");
     playpauseTrack.classList.add("fa-pause-circle");
     music.volume = volumeControl.value / 100;
+    
 
     newArr[songIndex - 1].classList.remove("fa-play-circle");
     newArr[songIndex - 1].classList.add("fa-pause-circle");
@@ -105,11 +106,20 @@ playpauseTrack.addEventListener("click", () => {
     playpauseTrack.classList.remove("fa-pause-circle");
     playpauseTrack.classList.add("fa-play-circle");
     stop();
+    for (let i = 0; i < song.length; i++) {
+      if (songIndex  === i) {
+        newArr[i].classList.remove("fa-pause-circle");
+        newArr[i].classList.add("fa-play-circle");
+      } else {
+        newArr[i].classList.remove("fa-pause-circle");
+        newArr[i].classList.add("fa-play-circle");
+      }
+    }
   }
 });
 
 music.addEventListener("timeupdate", () => {
-  // Update Seekbar
+ 
   progress = parseInt((music.currentTime / music.duration) * 100);
   mainRange.value = progress;
 
@@ -198,6 +208,8 @@ const nextTrack = () => {
     : (songIndex = songIndex);
   if (songIndex <= song.length && songIndex >= 1) {
     music.src = `audio/${songIndex}.mp3`;
+    document.getElementById("downloadtitle").href = ;
+    music=`audio/${songIndex}.mp3`
     music.play();
     document.querySelector(".title").innerText = song[songIndex - 1].name;
     playpauseTrack.classList.remove("fa-play-circle");
@@ -222,7 +234,7 @@ const prevTrack = () => {
   if (songIndex >= 1) {
     music.src = `audio/${songIndex}.mp3`;
     music.play();
-   
+    document.getElementById("downloadtitle").href = `audio/${songIndex}.mp3`;
     document.querySelector(".title").innerText = song[songIndex - 1].name;
     playpauseTrack.classList.remove("fa-play-circle");
     playpauseTrack.classList.add("fa-pause-circle");
