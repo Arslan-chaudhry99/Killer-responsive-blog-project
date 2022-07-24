@@ -61,6 +61,7 @@ const increaseFull = () => {
     null;
   }
 };
+let indexFromSongList=0
 let songIndex = 1;
 let music = new Audio(`audio/${songIndex}.mp3`);
 volumeControl.addEventListener("change", () => {
@@ -96,10 +97,17 @@ playpauseTrack.addEventListener("click", () => {
     playpauseTrack.classList.remove("fa-play-circle");
     playpauseTrack.classList.add("fa-pause-circle");
     music.volume = volumeControl.value / 100;
-    
-
-    newArr[songIndex - 1].classList.remove("fa-play-circle");
-    newArr[songIndex - 1].classList.add("fa-pause-circle");
+    // newArr[songIndex - 1].classList.remove("fa-play-circle");
+    // newArr[songIndex - 1].classList.add("fa-pause-circle");
+    for (let i = 0; i < song.length; i++) {
+      if (indexFromSongList === i) {
+        newArr[i].classList.remove("fa-play-circle");
+        newArr[i].classList.add("fa-pause-circle");
+      } else {
+        newArr[i].classList.remove("fa-pause-circle");
+        newArr[i].classList.add("fa-play-circle");
+      }
+    }
   } else {
     music.pause();
     music.currentTime = 0;
@@ -107,14 +115,12 @@ playpauseTrack.addEventListener("click", () => {
     playpauseTrack.classList.add("fa-play-circle");
     stop();
     for (let i = 0; i < song.length; i++) {
-      if (songIndex  === i) {
+      
         newArr[i].classList.remove("fa-pause-circle");
         newArr[i].classList.add("fa-play-circle");
-      } else {
-        newArr[i].classList.remove("fa-pause-circle");
-        newArr[i].classList.add("fa-play-circle");
-      }
+      
     }
+   
   }
 });
 
@@ -189,6 +195,8 @@ newArr.forEach((element, index) => {
       music.play();
       playpauseTrack.classList.remove("fa-play-circle");
       playpauseTrack.classList.add("fa-pause-circle");
+      indexFromSongList=index
+      
     } else {
       setNew = true;
       music.pause();
@@ -208,13 +216,12 @@ const nextTrack = () => {
     : (songIndex = songIndex);
   if (songIndex <= song.length && songIndex >= 1) {
     music.src = `audio/${songIndex}.mp3`;
-    document.getElementById("downloadtitle").href = ;
-    music=`audio/${songIndex}.mp3`
+    
     music.play();
     document.querySelector(".title").innerText = song[songIndex - 1].name;
     playpauseTrack.classList.remove("fa-play-circle");
     playpauseTrack.classList.add("fa-pause-circle");
-
+    indexFromSongList=songIndex-1
     for (let i = 0; i < song.length; i++) {
       if (songIndex - 1 === i) {
         newArr[i].classList.remove("fa-play-circle");
@@ -238,6 +245,7 @@ const prevTrack = () => {
     document.querySelector(".title").innerText = song[songIndex - 1].name;
     playpauseTrack.classList.remove("fa-play-circle");
     playpauseTrack.classList.add("fa-pause-circle");
+    indexFromSongList=songIndex-1
     for (let i = 0; i < song.length; i++) {
       if (songIndex - 1 === i) {
         newArr[i].classList.remove("fa-play-circle");
