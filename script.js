@@ -220,24 +220,8 @@ const nextTrack = () => {
     : (songIndex = songIndex);
   if (songIndex <= song.length && songIndex >= 1) {
     music.src = `audio/${songIndex}.mp3`;
-    const playBluredOp=()=>{
-      music.play();
-    }
-    document.getElementById("player").classList.add("blur_effect")
-    document.getElementById("loderDiv").style.display="grid"
-    let due = music.duration;
-    let dureNow = true;
-    setInterval(() => {
-      if (isNaN(due) && dureNow === true) {
-        if (music.currentTime > 0) {
-          dureNow = false;
-        }
-      } else {
-        document.getElementById("player").classList.remove("blur_effect")
-        document.getElementById("loderDiv").style.display="none"
-        playBluredOp()
-      }
-    }, 1000);
+   
+    music.play();
 
     document.getElementById("downloadtitle").href = `audio/${songIndex}.mp3`;
     document.getElementById("downloadtitle").download =
@@ -266,24 +250,8 @@ const prevTrack = () => {
   songIndex < 1 ? (songIndex = 1) : (songIndex = songIndex);
   if (songIndex >= 1) {
     music.src = `audio/${songIndex}.mp3`;
-    const playBluredOp=()=>{
-      music.play();
-    }
-    document.getElementById("player").classList.add("blur_effect")
-    document.getElementById("loderDiv").style.display="grid"
-    let due = music.duration;
-    let dureNow = true;
-    setInterval(() => {
-      if (isNaN(due) && dureNow === true) {
-        if (music.currentTime > 0) {
-          dureNow = false;
-        }
-      } else {
-        document.getElementById("player").classList.remove("blur_effect")
-        document.getElementById("loderDiv").style.display="none"
-        playBluredOp()
-      }
-    }, 1000);
+  
+    music.play();
     document.getElementById("downloadtitle").href = `audio/${songIndex}.mp3`;
     // music.play();
     document.getElementById("downloadtitle").href = `audio/${songIndex}.mp3`;
