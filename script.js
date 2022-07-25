@@ -84,14 +84,14 @@ const showcontentNow = () => {
     upDown.classList.remove("fa-angle-down");
     upDown.classList.add("fa-angle-up");
     volumePlayer.style.display = "none";
-    document.getElementById("download").style.zIndex="-1"
+    document.getElementById("download").style.zIndex = "-1";
   };
   const hide = () => {
     defult = true;
     expendOrDisable.style.height = "0px";
     upDown.classList.remove("fa-angle-up");
     upDown.classList.add("fa-angle-down");
-    document.getElementById("download").style.zIndex="1"
+    document.getElementById("download").style.zIndex = "1";
   };
   defult ? show() : hide();
 };
@@ -131,7 +131,7 @@ playpauseTrack.addEventListener("click", () => {
 // This logic is writen to detect the time update to move main seek
 
 music.addEventListener("timeupdate", () => {
-  document.getElementById("downloadtitle").href=music.src
+  document.getElementById("downloadtitle").href = music.src;
   progress = parseInt((music.currentTime / music.duration) * 100);
   mainRange.value = progress;
   let totalDuraction = parseInt(music.duration);
@@ -218,7 +218,8 @@ const nextTrack = () => {
     : (songIndex = songIndex);
   if (songIndex <= song.length && songIndex >= 1) {
     music.src = `audio/${songIndex}.mp3`;
-
+    document.getElementById("downloadtitle").href = `audio/${songIndex}.mp3`;
+    document.getElementById("downloadtitle").download = song[songIndex - 1].name;
     music.play();
     document.querySelector(".title").innerText = song[songIndex - 1].name;
     playpauseTrack.classList.remove("fa-play-circle");
@@ -243,9 +244,11 @@ const prevTrack = () => {
   songIndex < 1 ? (songIndex = 1) : (songIndex = songIndex);
   if (songIndex >= 1) {
     music.src = `audio/${songIndex}.mp3`;
+    document.getElementById("downloadtitle").href = `audio/${songIndex}.mp3`;
     music.play();
     document.getElementById("downloadtitle").href = `audio/${songIndex}.mp3`;
     document.querySelector(".title").innerText = song[songIndex - 1].name;
+    document.getElementById("downloadtitle").download = song[songIndex - 1].name;
     playpauseTrack.classList.remove("fa-play-circle");
     playpauseTrack.classList.add("fa-pause-circle");
     indexFromSongList = songIndex - 1;
@@ -264,25 +267,25 @@ const prevTrack = () => {
 };
 
 // loop of song
+let conform=true
 const repeatTrack = (condtion) => {
+ 
   if (condtion === true) {
+    conform=true
     document.getElementById("close").style.display = "none";
     document.getElementById("open").style.display = "flex";
-    const conditionChecking = () => {
-      if (music.currentTime <= 0) {
-        null;
-      } else {
-        if (music.currentTime === music.duration) {
-          music.play();
-          
-        } else {
-          null;
-        }
-      }
-    };
-    setInterval(conditionChecking, 1000);
+    music.addEventListener("ended", () => {
+    if(conform === true){
+     music.play()
+    }
+    else if(conform === false){
+      music.pause()
+    }
+    });
   } else if (condtion === false) {
     document.getElementById("close").style.display = "flex";
     document.getElementById("open").style.display = "none";
+    conform=false
   }
+  console.log(conform);
 };
