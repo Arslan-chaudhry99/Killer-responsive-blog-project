@@ -127,6 +127,7 @@ playpauseTrack.addEventListener("click", () => {
   }
 });
 // This logic is writen to detect the time update to move main seek
+
 music.addEventListener("timeupdate", () => {
   progress = parseInt((music.currentTime / music.duration) * 100);
   mainRange.value = progress;
