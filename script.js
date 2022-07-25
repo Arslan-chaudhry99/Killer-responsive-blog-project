@@ -84,12 +84,14 @@ const showcontentNow = () => {
     upDown.classList.remove("fa-angle-down");
     upDown.classList.add("fa-angle-up");
     volumePlayer.style.display = "none";
+    document.getElementById("download").style.zIndex="-1"
   };
   const hide = () => {
     defult = true;
     expendOrDisable.style.height = "0px";
     upDown.classList.remove("fa-angle-up");
     upDown.classList.add("fa-angle-down");
+    document.getElementById("download").style.zIndex="1"
   };
   defult ? show() : hide();
 };
@@ -129,9 +131,9 @@ playpauseTrack.addEventListener("click", () => {
 // This logic is writen to detect the time update to move main seek
 
 music.addEventListener("timeupdate", () => {
+  document.getElementById("downloadtitle").href=music.src
   progress = parseInt((music.currentTime / music.duration) * 100);
   mainRange.value = progress;
-
   let totalDuraction = parseInt(music.duration);
 
   const min = Math.floor(totalDuraction / 60);
@@ -173,13 +175,13 @@ const makeAllPlays = () => {
 
 let title = (document.querySelector(".title").innerHTML = song[0].name);
 document.getElementById("downloadtitle").download = `${title}`;
-document.getElementById("downloadtitle").href = "audio/1.mp3";
+// document.getElementById("downloadtitle").href = "audio/1.mp3";
 
 const titleOfSong = (name) => {
   let newSongName = (document.querySelector(".title").innerHTML =
     song[name].name);
   document.getElementById("downloadtitle").download = `${newSongName}`;
-  document.getElementById("downloadtitle").href = `audio/${name + 1}.mp3`;
+  // document.getElementById("downloadtitle").href = `audio/${name + 1}.mp3`;
 };
 // dynamic song paths
 let setNew = true;
