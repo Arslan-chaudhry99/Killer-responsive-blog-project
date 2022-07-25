@@ -135,7 +135,12 @@ playpauseTrack.addEventListener("click", () => {
 music.addEventListener("timeupdate", () => {
   document.getElementById("downloadtitle").href = music.src;
   progress = parseInt((music.currentTime / music.duration) * 100);
-  mainRange.value = progress;
+  if (progress >0) {
+    
+    mainRange.value = progress;
+  }
+
+  
   let totalDuraction = parseInt(music.duration);
 
   const min = Math.floor(totalDuraction / 60);
@@ -144,7 +149,10 @@ music.addEventListener("timeupdate", () => {
     return num.toString().padStart(2, "0");
   }
   const result = `${mintSec(min)}:${mintSec(sec)}`;
-  document.getElementById("total_time").innerText = result;
+  if (music.currentTime >1) {
+    
+    document.getElementById("total_time").innerText = result;
+  }
   // curent time
   let curentTime = parseInt(music.currentTime);
   const curentMin = Math.floor(curentTime / 60);
@@ -214,6 +222,7 @@ newArr.forEach((element, index) => {
 });
 // next track
 const nextTrack = () => {
+  mainRange.value=0
   ++songIndex;
   songIndex > song.length
     ? (songIndex = songIndex - 1)
@@ -246,6 +255,7 @@ const nextTrack = () => {
 };
 // previous track
 const prevTrack = () => {
+  mainRange.value=0
   --songIndex;
   songIndex < 1 ? (songIndex = 1) : (songIndex = songIndex);
   if (songIndex >= 1) {
