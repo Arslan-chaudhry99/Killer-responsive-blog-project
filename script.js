@@ -69,7 +69,9 @@ const increaseFull = () => {
 };
 let indexFromSongList = 0;
 let songIndex = 1;
+
 let music = new Audio(`audio/${songIndex}.mp3`);
+
 // This is used to dected if any change is done in seek by user
 volumeControl.addEventListener("change", () => {
   let setMusic = document.getElementById("volumeControl");
@@ -218,8 +220,28 @@ const nextTrack = () => {
     : (songIndex = songIndex);
   if (songIndex <= song.length && songIndex >= 1) {
     music.src = `audio/${songIndex}.mp3`;
+    const playBluredOp=()=>{
+      music.play();
+    }
+    document.getElementById("player").classList.add("blur_effect")
+    document.getElementById("loderDiv").style.display="grid"
+    let due = music.duration;
+    let dureNow = true;
+    setInterval(() => {
+      if (isNaN(due) && dureNow === true) {
+        if (music.currentTime > 0) {
+          dureNow = false;
+        }
+      } else {
+        document.getElementById("player").classList.remove("blur_effect")
+        document.getElementById("loderDiv").style.display="none"
+        playBluredOp()
+      }
+    }, 1000);
+
     document.getElementById("downloadtitle").href = `audio/${songIndex}.mp3`;
-    document.getElementById("downloadtitle").download = song[songIndex - 1].name;
+    document.getElementById("downloadtitle").download =
+      song[songIndex - 1].name;
     music.play();
     document.querySelector(".title").innerText = song[songIndex - 1].name;
     playpauseTrack.classList.remove("fa-play-circle");
@@ -244,11 +266,30 @@ const prevTrack = () => {
   songIndex < 1 ? (songIndex = 1) : (songIndex = songIndex);
   if (songIndex >= 1) {
     music.src = `audio/${songIndex}.mp3`;
+    const playBluredOp=()=>{
+      music.play();
+    }
+    document.getElementById("player").classList.add("blur_effect")
+    document.getElementById("loderDiv").style.display="grid"
+    let due = music.duration;
+    let dureNow = true;
+    setInterval(() => {
+      if (isNaN(due) && dureNow === true) {
+        if (music.currentTime > 0) {
+          dureNow = false;
+        }
+      } else {
+        document.getElementById("player").classList.remove("blur_effect")
+        document.getElementById("loderDiv").style.display="none"
+        playBluredOp()
+      }
+    }, 1000);
     document.getElementById("downloadtitle").href = `audio/${songIndex}.mp3`;
-    music.play();
+    // music.play();
     document.getElementById("downloadtitle").href = `audio/${songIndex}.mp3`;
     document.querySelector(".title").innerText = song[songIndex - 1].name;
-    document.getElementById("downloadtitle").download = song[songIndex - 1].name;
+    document.getElementById("downloadtitle").download =
+      song[songIndex - 1].name;
     playpauseTrack.classList.remove("fa-play-circle");
     playpauseTrack.classList.add("fa-pause-circle");
     indexFromSongList = songIndex - 1;
@@ -267,25 +308,22 @@ const prevTrack = () => {
 };
 
 // loop of song
-let conform=true
+let conform = true;
 const repeatTrack = (condtion) => {
- 
   if (condtion === true) {
-    conform=true
+    conform = true;
     document.getElementById("close").style.display = "none";
     document.getElementById("open").style.display = "flex";
     music.addEventListener("ended", () => {
-    if(conform === true){
-     music.play()
-    }
-    else if(conform === false){
-      music.pause()
-    }
+      if (conform === true) {
+        music.play();
+      } else if (conform === false) {
+        music.pause();
+      }
     });
   } else if (condtion === false) {
     document.getElementById("close").style.display = "flex";
     document.getElementById("open").style.display = "none";
-    conform=false
+    conform = false;
   }
-  console.log(conform);
 };

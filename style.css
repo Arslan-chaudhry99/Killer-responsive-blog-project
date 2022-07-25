@@ -3,7 +3,10 @@ body {
     color: whitesmoke;
     background-color: rgb(60, 67, 74);
 }
-
+*{
+    margin: 0;
+    padding: 0;
+}
 .player {
     height: 95vh;
     display: grid;
@@ -468,6 +471,14 @@ i.fa-step-backward {
         transform: rotate(360deg);
     }
 }
+@-moz-keyframes spin{
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
 .duracion{
     display: none;
 }
@@ -490,3 +501,52 @@ i.fa-step-backward {
         transform: rotate(360deg);
     }
 } */
+
+
+
+.loader {
+    position: absolute;
+    
+
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spiners 2s linear infinite; /* Safari */
+    -moz-animation:spiners 2s linear infinite;
+    animation: spiners 2s linear infinite;
+  }
+  
+  /* Safari */
+  @-webkit-keyframes spiners {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spiners {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  /* mozila */
+  @-moz-keyframes spiners {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+
+.loderDiv{
+    width: 100%;
+    height: 100vh;
+    background-color: transparent;
+    display: grid;
+    place-items: center;
+    position: absolute;
+    z-index: 1;
+    display: none;
+  }
+  .blur_effect{
+    -webkit-filter: blur(10px); /* Safari 6.0 - 9.0 */
+    filter: blur(10px);
+  }
