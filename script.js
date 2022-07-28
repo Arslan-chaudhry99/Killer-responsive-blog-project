@@ -28,6 +28,60 @@ const song = [
     name: "Broken Angle MP.3",
   },
 ];
+// This class is to identify which class is need to play or pause
+class globalPlayers{
+  constructor(index){
+    this.curentIndex=index;
+  }
+  curentPlayer(){
+    
+    for (let i = 0; i < song.length; i++) {
+      if (this.curentIndex === i) {
+        newArr[i].classList.remove("fa-play-circle");
+        newArr[i].classList.add("fa-pause-circle");
+      } else {
+        newArr[i].classList.remove("fa-pause-circle");
+        newArr[i].classList.add("fa-play-circle");
+      }
+    }
+  }
+  
+}
+// using to play 
+class removePlayAddPause{
+  static remPlayAddPau(){
+    playpauseTrack.classList.remove("fa-play-circle");
+    playpauseTrack.classList.add("fa-pause-circle");
+  }
+}
+// using to paused
+class removePauseAddPlay{
+  static remPauAddPlay(){
+    playpauseTrack.classList.remove("fa-pause-circle");
+    playpauseTrack.classList.add("fa-play-circle");
+  }
+}
+// loop paused
+class loopToPlayAdd{
+  static addPlayBtn(){
+    for (let i = 0; i < song.length; i++) {
+      newArr[i].classList.remove("fa-pause-circle");
+      newArr[i].classList.add("fa-play-circle");
+    }
+  }
+}
+// This class is use to manuplate the song title and dodload title
+class songNtilAndname{
+  constructor(index){
+    this.songIND=index
+  }
+  menuplateNow(){
+    document.getElementById("downloadtitle").href = `audio/${this.songIND}.mp3`;
+    document.getElementById("downloadtitle").download =song[this.songIND - 1].name;
+    document.querySelector(".title").innerText = song[this.songIND - 1].name;
+  }
+}
+
 let checkAddVolume = false;
 let fav = document.getElementById("fav");
 let volumeDisplay = document.getElementById("volumeDisplay");
@@ -106,28 +160,17 @@ playpauseTrack.addEventListener("click", () => {
   if (music.pause && music.currentTime <= 0) {
     music.currentTime = (mainRange.value * music.duration) / 100;
     music.play();
-    playpauseTrack.classList.remove("fa-play-circle");
-    playpauseTrack.classList.add("fa-pause-circle");
+    removePlayAddPause.remPlayAddPau()
     music.volume = volumeControl.value / 100;
-    for (let i = 0; i < song.length; i++) {
-      if (indexFromSongList === i) {
-        newArr[i].classList.remove("fa-play-circle");
-        newArr[i].classList.add("fa-pause-circle");
-      } else {
-        newArr[i].classList.remove("fa-pause-circle");
-        newArr[i].classList.add("fa-play-circle");
-      }
-    }
+    let mainPlayer=new globalPlayers(indexFromSongList)
+    mainPlayer.curentPlayer();
   } else {
     music.pause();
     music.currentTime = 0;
-    playpauseTrack.classList.remove("fa-pause-circle");
-    playpauseTrack.classList.add("fa-play-circle");
+    removePauseAddPlay.remPauAddPlay()
     stop();
-    for (let i = 0; i < song.length; i++) {
-      newArr[i].classList.remove("fa-pause-circle");
-      newArr[i].classList.add("fa-play-circle");
-    }
+    loopToPlayAdd.addPlayBtn()
+   
   }
 });
 // This logic is writen to detect the time update to move main seek
@@ -182,13 +225,13 @@ const makeAllPlays = () => {
 
 let title = (document.querySelector(".title").innerHTML = song[0].name);
 document.getElementById("downloadtitle").download = `${title}`;
-// document.getElementById("downloadtitle").href = "audio/1.mp3";
+
 
 const titleOfSong = (name) => {
   let newSongName = (document.querySelector(".title").innerHTML =
     song[name].name);
   document.getElementById("downloadtitle").download = `${newSongName}`;
-  // document.getElementById("downloadtitle").href = `audio/${name + 1}.mp3`;
+
 };
 // dynamic song paths
 let setNew = true;
@@ -201,11 +244,10 @@ newArr.forEach((element, index) => {
       e.target.classList.remove("fa-play-circle");
       e.target.classList.add("fa-pause-circle");
       titleOfSong(index);
-      progress;
+      // progress;
       music.src = `audio/${index + 1}.mp3`;
       music.play();
-      playpauseTrack.classList.remove("fa-play-circle");
-      playpauseTrack.classList.add("fa-pause-circle");
+      removePlayAddPause.remPlayAddPau()
       indexFromSongList = index;
     } else {
       setNew = true;
@@ -213,8 +255,7 @@ newArr.forEach((element, index) => {
       e.target.classList.remove("fa-pause-circle");
       e.target.classList.add("fa-play-circle");
       mainRange.value = 0;
-      playpauseTrack.classList.remove("fa-pause-circle");
-      playpauseTrack.classList.add("fa-play-circle");
+      removePauseAddPlay.remPauAddPlay()
     }
   });
 });
@@ -227,57 +268,32 @@ const nextTrack = () => {
     : (songIndex = songIndex);
   if (songIndex <= song.length && songIndex >= 1) {
     music.src = `audio/${songIndex}.mp3`;
-
     music.play();
-
-    document.getElementById("downloadtitle").href = `audio/${songIndex}.mp3`;
-    document.getElementById("downloadtitle").download =
-      song[songIndex - 1].name;
+    let naming=new songNtilAndname(songIndex)
+    naming.menuplateNow()
     music.play();
-    document.querySelector(".title").innerText = song[songIndex - 1].name;
-    playpauseTrack.classList.remove("fa-play-circle");
-    playpauseTrack.classList.add("fa-pause-circle");
+    removePlayAddPause.remPlayAddPau()
     indexFromSongList = songIndex - 1;
-    for (let i = 0; i < song.length; i++) {
-      if (songIndex - 1 === i) {
-        newArr[i].classList.remove("fa-play-circle");
-        newArr[i].classList.add("fa-pause-circle");
-      } else {
-        newArr[i].classList.remove("fa-pause-circle");
-        newArr[i].classList.add("fa-play-circle");
-      }
-    }
+    let nextPlayer=new globalPlayers(songIndex - 1)
+    nextPlayer.curentPlayer()
+  
   } else {
     null;
   }
 };
-// previous track
 const prevTrack = () => {
   mainRange.value = 0;
   --songIndex;
   songIndex < 1 ? (songIndex = 1) : (songIndex = songIndex);
   if (songIndex >= 1) {
     music.src = `audio/${songIndex}.mp3`;
-
     music.play();
-    // document.getElementById("downloadtitle").href = `audio/${songIndex}.mp3`;
-    // // music.play();
-    document.getElementById("downloadtitle").href = `audio/${songIndex}.mp3`;
-    document.querySelector(".title").innerText = song[songIndex - 1].name;
-    document.getElementById("downloadtitle").download =
-      song[songIndex - 1].name;
-    playpauseTrack.classList.remove("fa-play-circle");
-    playpauseTrack.classList.add("fa-pause-circle");
+    let naming=new songNtilAndname(songIndex)
+    naming.menuplateNow()
+      removePlayAddPause.remPlayAddPau()
     indexFromSongList = songIndex - 1;
-    for (let i = 0; i < song.length; i++) {
-      if (songIndex - 1 === i) {
-        newArr[i].classList.remove("fa-play-circle");
-        newArr[i].classList.add("fa-pause-circle");
-      } else {
-        newArr[i].classList.remove("fa-pause-circle");
-        newArr[i].classList.add("fa-play-circle");
-      }
-    }
+    let prePlayer=new globalPlayers(songIndex - 1);
+    prePlayer.curentPlayer();
   } else {
     null;
   }
@@ -293,27 +309,15 @@ const repeatTrack = (condtion) => {
     music.addEventListener("ended", () => {
       if (conform === true) {
         music.play();
-        for (let i = 0; i < song.length; i++) {
-          if (i === indexFromSongList) {
-            newArr[i].classList.remove("fa-play-circle");
-            newArr[i].classList.add("fa-pause-circle");
-          } else {
-            newArr[i].classList.remove("fa-pause-circle");
-            newArr[i].classList.add("fa-play-circle");
-          }
-        }
-        playpauseTrack.classList.remove("fa-play-circle");
-        playpauseTrack.classList.add("fa-pause-circle");
+        let repetTrack=new globalPlayers(indexFromSongList)
+        repetTrack.curentPlayer()
+        removePlayAddPause.remPlayAddPau()
       } else if (conform === false) {
         music.pause();
         mainRange.value = 0;
         music.currentTime = 0;
-        for (let i = 0; i < song.length; i++) {
-          newArr[i].classList.remove("fa-pause-circle");
-          newArr[i].classList.add("fa-play-circle");
-        }
-        playpauseTrack.classList.remove("fa-pause-circle");
-        playpauseTrack.classList.add("fa-play-circle");
+        loopToPlayAdd.addPlayBtn()
+        removePauseAddPlay.remPauAddPlay()
       }
     });
   } else if (condtion === false) {
@@ -326,15 +330,9 @@ music.addEventListener("ended", function () {
   if (conform === true) {
     mainRange.value = 0;
     music.currentTime = 0;
-
-    for (let i = 0; i < song.length; i++) {
-      newArr[i].classList.remove("fa-pause-circle");
-      newArr[i].classList.add("fa-play-circle");
-    }
-    playpauseTrack.classList.remove("fa-pause-circle");
-    playpauseTrack.classList.add("fa-play-circle");
+    loopToPlayAdd.addPlayBtn()
+    removePauseAddPlay.remPauAddPlay()
   } else {
     null;
   }
 });
-
