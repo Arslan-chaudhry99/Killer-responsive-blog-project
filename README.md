@@ -26,6 +26,6 @@ link: https://arslan-chaudhry99.github.io/Killer-responsive-audio-site/
 About me:
 Deep understanding of Javascript concepts
 Regard: Arslan Chaudhry
-Thanks 
+Thanks!
 
 
